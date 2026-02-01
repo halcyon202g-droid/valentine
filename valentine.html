@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Be My Valentine ❤️</title>
+<style>
+body{
+margin:0;min-height:100vh;font-family:'Segoe UI',sans-serif;
+background:linear-gradient(135deg,#ff5f8a,#ff9a9e);
+display:flex;justify-content:center;align-items:center;color:white;text-align:center;overflow:hidden;
+}
+.card{background:rgba(255,255,255,0.15);backdrop-filter:blur(6px);padding:25px;border-radius:25px;width:90%;max-width:360px;box-shadow:0 0 30px rgba(0,0,0,0.2)}
+h1,h2{margin-bottom:15px}
+button{padding:14px 26px;font-size:17px;border:none;border-radius:30px;cursor:pointer;margin:8px}
+#yesBtn{background:#ff2f6d;color:white}
+#noBtn,.backBtn{background:white;color:#ff2f6d}
+.hidden{display:none}
+img{width:100%;max-width:260px;border-radius:18px;margin-top:15px}
+.heart{position:fixed;bottom:-20px;font-size:22px;animation:floatUp 4s linear forwards}
+@keyframes floatUp{to{transform:translateY(-120vh);opacity:0}}
+.confetti{position:fixed;top:-10px;font-size:20px;animation:fall 4s linear forwards}
+@keyframes fall{to{transform:translateY(120vh) rotate(360deg);opacity:0}}
+</style>
+</head>
+<body>
+
+<div class="card" id="home">
+<h1>Will you be my Valentine? 💘</h1>
+<p>I promise unlimited love, hugs, food & attention 😌❤️</p>
+<button id="yesBtn">Yes ❤️</button>
+<button id="noBtn">No 💔</button>
+</div>
+
+<div class="card hidden" id="yesPage">
+<h1>Congratulations My Forever Valentine 💖</h1>
+<p>You are officially mine now 😌💍</p>
+<img src="ourpic.jpg">
+<h2>I Love You Forever ❤️</h2>
+</div>
+
+<div class="card hidden" id="no1">
+<h2>Angry Mode Activated 😾</h2>
+<img src="angrycat.gif">
+<p>Wrong button. Try again 😤</p>
+<button class="backBtn" onclick="goHome()">⬅ Back</button>
+</div>
+
+<div class="card hidden" id="no2">
+<h2>Serious Warning 😡</h2>
+<img src="warning.gif">
+<p>This is emotional damage 😭</p>
+<button class="backBtn" onclick="goHome()">⬅ Back</button>
+</div>
+
+<div class="card hidden" id="no3">
+<h2>Guilt Trip 🥺</h2>
+<img src="sadcat.gif">
+<p>My heart is breaking 💔</p>
+<button class="backBtn" onclick="goHome()">⬅ Back</button>
+</div>
+
+<div class="card hidden" id="no4">
+<h2>Bollywood Drama 😵</h2>
+<p>"Tum mujhe chhod kar jaa rahi ho??" 😭🎬</p>
+<button class="backBtn" onclick="goHome()">⬅ Back</button>
+</div>
+
+<div class="card hidden" id="no5">
+<h2>Meme Attack 🤡</h2>
+<p>"Ye NO ka button tumhare liye hi bana tha kya??" 😂</p>
+<button class="backBtn" onclick="goHome()">⬅ Back</button>
+</div>
+
+<audio id="bonk" src="bonk.mp3"></audio>
+<audio id="sad" src="sad.mp3"></audio>
+<audio id="love" src="love.mp3"></audio>
+
+<script>
+const home=document.getElementById("home");
+const yesPage=document.getElementById("yesPage");
+const noPages=[
+ document.getElementById("no1"),
+ document.getElementById("no2"),
+ document.getElementById("no3"),
+ document.getElementById("no4"),
+ document.getElementById("no5")
+];
+let noCount=0;
+
+const bonk=document.getElementById("bonk");
+const sad=document.getElementById("sad");
+const love=document.getElementById("love");
+
+
+document.getElementById("yesBtn").onclick=()=>{
+ hideAll();yesPage.classList.remove("hidden");
+ love.play();startHearts();startConfetti();
+};
+
+document.getElementById("noBtn").onclick=()=>{
+ hideAll();
+ noPages[noCount%noPages.length].classList.remove("hidden");
+ if(noCount%2==0){bonk.play();}else{sad.play();}
+ noCount++;
+};
+
+function goHome(){hideAll();home.classList.remove("hidden");}
+function hideAll(){home.classList.add("hidden");yesPage.classList.add("hidden");noPages.forEach(p=>p.classList.add("hidden"));}
+
+function startHearts(){setInterval(()=>{const h=document.createElement("div");h.className="heart";h.innerHTML="❤️";h.style.left=Math.random()*100+"vw";document.body.appendChild(h);setTimeout(()=>h.remove(),4000);},250);}
+
+function startConfetti(){setInterval(()=>{const c=document.createElement("div");c.className="confetti";c.innerHTML="🎊";c.style.left=Math.random()*100+"vw";document.body.appendChild(c);setTimeout(()=>c.remove(),4000);},200);}
+</script>
+</body>
+</html>
